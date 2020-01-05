@@ -47,13 +47,14 @@ window.addEventListener('DOMContentLoaded', function() {
         newCard;
 
 
+    
     readyBtn.addEventListener('click', function() {
         if (nameValue.value == '' || ageValue.value == '' || bioValue.value == '') {
             alert('Заполните все поля!');
         } else {
             showMainPage();
             addNewCard();
-            
+
             removeExtraCards();
             cardsWrapper.appendChild(newCard);
             nullifyResult();
@@ -148,24 +149,24 @@ window.addEventListener('DOMContentLoaded', function() {
         newCard.classList.add('main-cards-item');
 
         newCard.innerHTML = `
-				<div class="candidate-block">
-					<div class="photo"></div>
-					<div class="result">
-						<div class="result-count">65%</div>
-						<div class="progress">
-							<div class="progress-bar progress-bar-2"></div>
-						</div>
+			<div class="candidate-block">
+				<div class="photo"></div>
+				<div class="result">
+					<div class="result-count">65%</div>
+					<div class="progress">
+						<div class="progress-bar progress-bar-2"></div>
 					</div>
 				</div>
-				<div class="name">${name}</div>
-				<div class="age">${age} лет</div>
-				Пол:
-				<div class="sex">${sex}</div>
-				Полит. взгляды:
-				<div class="views">${view}</div>
-				Биография
-				<div class="bio">${bio}</div>
-        `
+			</div>
+			<div class="name">${name}</div>
+			<div class="age">${age} лет</div>
+			Пол:
+			<div class="sex">${sex}</div>
+			Полит. взгляды:
+			<div class="views">${view}</div>
+			Биография
+			<div class="bio">${bio}</div>
+        `;
 
         let photo = newCard.querySelector('.photo');
 
@@ -315,12 +316,13 @@ window.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-
+    
 
     function nullifyResult() {
-        let results = document.querySelectorAll('.result-count'),
-            progressBars = document.querySelectorAll('.progress-bar');
 
+        let results = document.querySelectorAll('.result-count'),
+        progressBars = document.querySelectorAll('.progress-bar');
+        
         results.forEach(function(elem) {
             elem.innerHTML = '0%';
         });
@@ -328,6 +330,17 @@ window.addEventListener('DOMContentLoaded', function() {
         progressBars.forEach(function(elem) {
             elem.className = 'progress-bar';
         });
+
+
+    let voteBtn = document.getElementById('voting');
+
+    voteBtn.addEventListener('click', function() {
+        getRandomNums();
+        for(let i = 0; i < 3; i++) {
+            results[i].textContent = randomNumsArray[i] + '%';
+            progressBars[i].style.height = randomNumsArray[i]+'%';
+        }
+    });
     }
 
     let resetBtn = document.getElementById('reset'),
@@ -347,6 +360,32 @@ window.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
+
+    let randomNumsArray = [];
+
+    function getRandomNums() {
+        let a,
+            b,
+            c;
+
+        randomNumsArray = [];    
+
+        a = Math.round(Math.random() * 100);
+        b = Math.round(Math.random() * 100);
+        c = 100 - a - b;
+
+        while (c <= 0) {
+
+            a = Math.round(Math.random() * 100);
+            b = Math.round(Math.random() * 100);
+            c = 100 - a - b;
+            
+        }
+        randomNumsArray.push(a,b,c);
+    }
+
+
+    
 
 
 });
