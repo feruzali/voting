@@ -47,7 +47,7 @@ window.addEventListener('DOMContentLoaded', function() {
         newCard;
 
 
-    
+
     readyBtn.addEventListener('click', function() {
         if (nameValue.value == '' || ageValue.value == '' || bioValue.value == '') {
             alert('Заполните все поля!');
@@ -316,13 +316,13 @@ window.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    
+
 
     function nullifyResult() {
 
         let results = document.querySelectorAll('.result-count'),
-        progressBars = document.querySelectorAll('.progress-bar');
-        
+            progressBars = document.querySelectorAll('.progress-bar');
+
         results.forEach(function(elem) {
             elem.innerHTML = '0%';
         });
@@ -332,15 +332,67 @@ window.addEventListener('DOMContentLoaded', function() {
         });
 
 
-    let voteBtn = document.getElementById('voting');
+        let voteBtn = document.getElementById('voting'),
+            crimeBtn = document.getElementById('crime');
 
-    voteBtn.addEventListener('click', function() {
-        getRandomNums();
-        for(let i = 0; i < 3; i++) {
-            results[i].textContent = randomNumsArray[i] + '%';
-            progressBars[i].style.height = randomNumsArray[i]+'%';
-        }
-    });
+        crimeBtn.addEventListener('click', function() {
+
+            let a,
+                b,
+                c;
+
+            randomNumsArray = [];
+
+            a = Math.round(Math.random() * 100);
+            b = Math.round(Math.random() * 100);
+            c = 25 + (75 - a - b);
+
+            while (c <= 25) {
+
+                a = Math.round(Math.random() * 100);
+                b = Math.round(Math.random() * 100);
+                c = 25 + (75 - a - b);
+
+            }
+            randomNumsArray.push(a, b, c);
+
+
+
+            for (let i = 0; i < 3; i++) {
+                results[i].textContent = randomNumsArray[i] + '%';
+                progressBars[i].style.height = randomNumsArray[i] + '%';
+            }
+
+            let max = Math.max(parseInt(results[0].innerHTML), parseInt(results[1].innerHTML), parseInt(results[2].innerHTML));
+
+            results.forEach(function(elem) {
+                let grandpa = elem.closest('.main-cards-item');
+                grandpa.classList.remove('main-cards-item-active');
+                if (parseInt(elem.innerHTML) == max) {
+
+                    grandpa.classList.add('main-cards-item-active');
+                }
+            });
+        });
+
+        voteBtn.addEventListener('click', function() {
+            getRandomNums();
+            for (let i = 0; i < 3; i++) {
+                results[i].textContent = randomNumsArray[i] + '%';
+                progressBars[i].style.height = randomNumsArray[i] + '%';
+            }
+
+            let max = Math.max(parseInt(results[0].innerHTML), parseInt(results[1].innerHTML), parseInt(results[2].innerHTML));
+
+            results.forEach(function(elem) {
+                let grandpa = elem.closest('.main-cards-item');
+                grandpa.classList.remove('main-cards-item-active');
+                if (parseInt(elem.innerHTML) == max) {
+
+                    grandpa.classList.add('main-cards-item-active');
+                }
+            });
+        });
     }
 
     let resetBtn = document.getElementById('reset'),
@@ -368,7 +420,7 @@ window.addEventListener('DOMContentLoaded', function() {
             b,
             c;
 
-        randomNumsArray = [];    
+        randomNumsArray = [];
 
         a = Math.round(Math.random() * 100);
         b = Math.round(Math.random() * 100);
@@ -379,13 +431,14 @@ window.addEventListener('DOMContentLoaded', function() {
             a = Math.round(Math.random() * 100);
             b = Math.round(Math.random() * 100);
             c = 100 - a - b;
-            
+
         }
-        randomNumsArray.push(a,b,c);
+        randomNumsArray.push(a, b, c);
     }
 
 
-    
+
+
 
 
 });
