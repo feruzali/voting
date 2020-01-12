@@ -329,6 +329,8 @@ window.addEventListener('DOMContentLoaded', function() {
 
         progressBars.forEach(function(elem) {
             elem.className = 'progress-bar';
+            elem.style.height = 0;
+            elem.closest('.main-cards-item').classList.remove('main-cards-item-active');
         });
 
 
